@@ -5,6 +5,8 @@
  */
 package feemanagement;
 
+import MainScreen.Welcome;
+
 /**
  *
  * @author kumar
@@ -16,6 +18,8 @@ public class FeeManagement {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Welcome wel = new Welcome();
+        wel.show(true);
     }
     
 }

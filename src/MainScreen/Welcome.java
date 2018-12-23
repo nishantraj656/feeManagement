@@ -5,6 +5,10 @@
  */
 package MainScreen;
 
+import Student.StudentAdmission;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author kumar
@@ -16,6 +20,11 @@ public class Welcome extends javax.swing.JFrame {
      */
     public Welcome() {
         initComponents();
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      setBounds(0,0,screenSize.width, screenSize.height);
+      setVisible(true);
+
+     
     }
 
     /**
@@ -42,11 +51,8 @@ public class Welcome extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        newAdd = new javax.swing.JMenu();
+        student = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,21 +117,31 @@ public class Welcome extends javax.swing.JFrame {
 
         menuBar.add(helpMenu);
 
-        jMenu1.setText("New");
+        newAdd.setText("New");
 
-        jMenuItem1.setText("Student");
-        jMenu1.add(jMenuItem1);
+        student.setText("Student");
+        student.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                studentMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
+        student.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentMouseClicked(evt);
+            }
+        });
+        student.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentActionPerformed(evt);
+            }
+        });
+        newAdd.add(student);
 
-        jMenuItem2.setText("Employe");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Transport");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setText("Non-Teaching");
-        jMenu1.add(jMenuItem4);
-
-        menuBar.add(jMenu1);
+        menuBar.add(newAdd);
 
         setJMenuBar(menuBar);
 
@@ -133,11 +149,11 @@ public class Welcome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         pack();
@@ -146,6 +162,27 @@ public class Welcome extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void studentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentMouseClicked
+        // TODO add your handling code here:
+       /** StudentAdmission sifram =new StudentAdmission();
+        desktopPane.add(sifram);
+        sifram.show(true);*/
+        System.out.printf("Click");
+    }//GEN-LAST:event_studentMouseClicked
+
+    private void studentMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_studentMenuKeyPressed
+        // TODO add your handling code here:
+        System.out.printf("Click");
+    }//GEN-LAST:event_studentMenuKeyPressed
+
+    private void studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentActionPerformed
+        // TODO add your handling code here:
+        StudentAdmission sifram =new StudentAdmission();
+        desktopPane.add(sifram);
+        sifram.show(true);
+         System.out.printf("Click");
+    }//GEN-LAST:event_studentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,16 +230,13 @@ public class Welcome extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu newAdd;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem student;
     // End of variables declaration//GEN-END:variables
 
 }
