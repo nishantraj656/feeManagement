@@ -23,7 +23,7 @@ public class Welcome extends javax.swing.JFrame {
          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setBounds(0,0,screenSize.width, screenSize.height);
       setVisible(true);
-
+      
      
     }
 
@@ -53,6 +53,7 @@ public class Welcome extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
         newAdd = new javax.swing.JMenu();
         student = new javax.swing.JMenuItem();
+        setting = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +144,9 @@ public class Welcome extends javax.swing.JFrame {
 
         menuBar.add(newAdd);
 
+        setting.setText("Setting");
+        menuBar.add(setting);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +182,8 @@ public class Welcome extends javax.swing.JFrame {
 
     private void studentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentActionPerformed
         // TODO add your handling code here:
-        StudentAdmission sifram =new StudentAdmission();
+       
+        StudentAdmission sifram =new StudentAdmission(this.getSize());
         desktopPane.add(sifram);
         sifram.show(true);
          System.out.printf("Click");
@@ -236,6 +241,7 @@ public class Welcome extends javax.swing.JFrame {
     private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenu setting;
     private javax.swing.JMenuItem student;
     // End of variables declaration//GEN-END:variables
 
