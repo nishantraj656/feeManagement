@@ -5,6 +5,7 @@
  */
 package Student;
 
+import Database.DBConnection;
 import java.awt.Dimension;
 
 /**
@@ -238,11 +239,6 @@ public class StudentAdmission extends javax.swing.JInternalFrame {
         jLabel11.setBounds(62, 363, 83, 17);
 
         ph2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ph2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ph2ActionPerformed(evt);
-            }
-        });
         getContentPane().add(ph2);
         ph2.setBounds(510, 360, 251, 23);
 
@@ -527,6 +523,11 @@ public class StudentAdmission extends javax.swing.JInternalFrame {
 
         jButton2.setBackground(new java.awt.Color(51, 51, 255));
         jButton2.setText("Submit");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         getContentPane().add(jButton2);
         jButton2.setBounds(50, 463, 220, 30);
 
@@ -541,10 +542,6 @@ public class StudentAdmission extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pinActionPerformed
 
-    private void ph2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ph2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ph2ActionPerformed
-
     private void mother1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mother1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mother1ActionPerformed
@@ -556,6 +553,11 @@ public class StudentAdmission extends javax.swing.JInternalFrame {
     private void ph4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ph4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ph4ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        new DBConnection().connectDB();
+    }//GEN-LAST:event_jButton2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

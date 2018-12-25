@@ -5,6 +5,8 @@
  */
 package Student;
 
+import java.awt.Dimension;
+
 /**
  *
  * @author kumar
@@ -17,6 +19,12 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
     public StudentAdmissionStage2() {
         initComponents();
     }
+    
+     public StudentAdmissionStage2(Dimension size) {
+        initComponents();
+        setBounds(0,0,size.width-10, size.height-10);
+      setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,6 +35,7 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -79,10 +88,15 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(102, 255, 102));
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setAutoscrolls(true);
         getContentPane().setLayout(null);
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTextField1.setText("jTextField1");
+        jTextField1.setNextFocusableComponent(jButton1);
         getContentPane().add(jTextField1);
         jTextField1.setBounds(90, 35, 206, 23);
 
@@ -94,7 +108,7 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("GO");
         getContentPane().add(jButton1);
-        jButton1.setBounds(326, 34, 53, 25);
+        jButton1.setBounds(326, 34, 90, 30);
 
         ph2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ph2.addActionListener(new java.awt.event.ActionListener() {
@@ -133,11 +147,14 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
         getContentPane().add(refByID);
         refByID.setBounds(600, 80, 244, 20);
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Female");
         getContentPane().add(jRadioButton1);
         jRadioButton1.setBounds(550, 130, 67, 25);
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jRadioButton2.setText("Male");
         getContentPane().add(jRadioButton2);
@@ -309,7 +326,7 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
         jComboBox1.setBounds(110, 570, 250, 23);
 
         jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", " " }));
         getContentPane().add(jComboBox2);
         jComboBox2.setBounds(460, 570, 250, 23);
 
@@ -346,6 +363,7 @@ public class StudentAdmissionStage2 extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField at;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField dist;
     private javax.swing.JTextField father;
     private javax.swing.JLabel id;
