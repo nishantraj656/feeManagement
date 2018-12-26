@@ -61,6 +61,9 @@ public class Welcome extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         setting = new javax.swing.JMenu();
@@ -162,6 +165,16 @@ public class Welcome extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         newAdd.add(jMenu2);
+
+        jMenu3.setText("Inventory");
+
+        jMenuItem6.setText("New Inventory ");
+        jMenu3.add(jMenuItem6);
+
+        jMenuItem7.setText("New Stock");
+        jMenu3.add(jMenuItem7);
+
+        newAdd.add(jMenu3);
 
         menuBar.add(newAdd);
 
@@ -297,11 +310,14 @@ public class Welcome extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu newAdd;
     private javax.swing.JMenu newStudent;

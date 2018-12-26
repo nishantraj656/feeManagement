@@ -5,10 +5,14 @@
  */
 package DataType.Classes;
 
+
+
 /**
  *
  * @author kumar
  */
 public interface ClassesDao {
-    int insertStudent(Classes classes);
+    int insertClasses(Classes classes);
+     Classes[] selectClasses();
+    int updateClasses(Classes classes);
 }

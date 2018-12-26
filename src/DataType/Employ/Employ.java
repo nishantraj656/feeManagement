@@ -18,6 +18,7 @@ public class Employ {
 	private String ph2;
 	private String email;
 	private String type;
+       
         
 	public String getName() {
 		return name;

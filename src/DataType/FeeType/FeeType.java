@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataType.Session;
+package DataType.FeeType;
 
 /**
  *
  * @author kumar
  */
-public interface SessionDao {
+public class FeeType {
     
-     int insertSession(Session session);
-     Session[] selectSession();
-    int updateSession(Session session);
 }

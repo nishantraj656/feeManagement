@@ -5,14 +5,23 @@
  */
 package setting;
 
+import DataType.Classes.Classes;
+import DataType.Classes.ClassesDaoImpl;
+import DataType.Session.Session;
+import DataType.Session.SessionDaoImpl;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author kumar
  */
 public class SettingIFrame extends javax.swing.JInternalFrame {
-
+    Classes[] classListVector = null;
+    Session[] sessionListVector = null;
     /**
      * Creates new form SettingIFrame
      */
@@ -22,8 +31,12 @@ public class SettingIFrame extends javax.swing.JInternalFrame {
 
     public SettingIFrame(Dimension size) {
         initComponents();
+       ;
         setBounds(0,0,size.width-10, size.height-10);
         setVisible(true);
+       ListRefresh();
+       clearField();
+     sessionListRefresh();
     }
 
     /**
@@ -39,32 +52,35 @@ public class SettingIFrame extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tutionFee = new javax.swing.JTextField();
+        save = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        classList = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
+        ComputerFee = new javax.swing.JTextField();
+        className = new javax.swing.JTextField();
+        cID = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        feeSave = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        feeTxt = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        sessionSave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        sessionTxt = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
-        jPanel5 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
+        sessionList = new javax.swing.JList<>();
+        sID = new javax.swing.JLabel();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setAutoscrolls(true);
 
         jTabbedPane1.setBackground(new java.awt.Color(102, 255, 51));
 
@@ -76,27 +92,44 @@ public class SettingIFrame extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(358, 68, 39, 23);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tutionFee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tutionFee.setText("jTextField1");
+        tutionFee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tutionFeeActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(415, 68, 180, 23);
+        jPanel1.add(tutionFee);
+        tutionFee.setBounds(420, 100, 180, 23);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Save");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(474, 183, 121, 25);
+        save.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        save.setText("Save");
+        save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveMouseClicked(evt);
+            }
+        });
+        jPanel1.add(save);
+        save.setBounds(474, 183, 121, 25);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        classList.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        classList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "t" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        classList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        classList.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                classListPropertyChange(evt);
+            }
+        });
+        classList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                classListValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(classList);
 
         jPanel1.add(jScrollPane2);
         jScrollPane2.setBounds(10, 44, 260, 401);
@@ -106,43 +139,65 @@ public class SettingIFrame extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(324, 100, 73, 17);
 
-        jSpinner1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(jSpinner1);
-        jSpinner1.setBounds(415, 97, 180, 24);
-
-        jSpinner2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel1.add(jSpinner2);
-        jSpinner2.setBounds(415, 132, 180, 24);
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Computer Fee :");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(301, 135, 96, 17);
+
+        ComputerFee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ComputerFee.setText("jTextField1");
+        ComputerFee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComputerFeeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ComputerFee);
+        ComputerFee.setBounds(420, 130, 180, 23);
+
+        className.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        className.setText("jTextField1");
+        className.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classNameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(className);
+        className.setBounds(415, 68, 180, 23);
+
+        cID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cID.setText("0");
+        jPanel1.add(cID);
+        cID.setBounds(360, 10, 110, 20);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("ID :");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(330, 10, 23, 20);
 
         jTabbedPane1.addTab("Class", jPanel1);
 
         jPanel3.setBackground(new java.awt.Color(102, 255, 102));
         jPanel3.setLayout(null);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Save");
-        jPanel3.add(jButton2);
-        jButton2.setBounds(408, 240, 128, 33);
+        feeSave.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        feeSave.setText("Save");
+        jPanel3.add(feeSave);
+        feeSave.setBounds(408, 240, 128, 33);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Fee Type :");
         jPanel3.add(jLabel4);
         jLabel4.setBounds(312, 187, 65, 23);
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField2.setText("jTextField1");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        feeTxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        feeTxt.setText("jTextField1");
+        feeTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                feeTxtActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField2);
-        jTextField2.setBounds(408, 187, 199, 23);
+        jPanel3.add(feeTxt);
+        feeTxt.setBounds(408, 187, 199, 23);
 
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -159,72 +214,52 @@ public class SettingIFrame extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(102, 255, 102));
         jPanel4.setLayout(null);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("Save");
-        jPanel4.add(jButton3);
-        jButton3.setBounds(408, 240, 128, 33);
+        sessionSave.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        sessionSave.setText("Save");
+        sessionSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sessionSaveMouseClicked(evt);
+            }
+        });
+        jPanel4.add(sessionSave);
+        sessionSave.setBounds(408, 240, 128, 33);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Session :");
         jPanel4.add(jLabel5);
         jLabel5.setBounds(312, 187, 54, 23);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField3.setText("jTextField1");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        sessionTxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        sessionTxt.setText("jTextField1");
+        sessionTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                sessionTxtActionPerformed(evt);
             }
         });
-        jPanel4.add(jTextField3);
-        jTextField3.setBounds(408, 187, 199, 23);
+        jPanel4.add(sessionTxt);
+        sessionTxt.setBounds(408, 187, 199, 23);
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+        sessionList.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        sessionList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList3);
+        sessionList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                sessionListValueChanged(evt);
+            }
+        });
+        jScrollPane4.setViewportView(sessionList);
 
         jPanel4.add(jScrollPane4);
         jScrollPane4.setBounds(36, 80, 217, 342);
 
+        sID.setText("jLabel7");
+        jPanel4.add(sID);
+        sID.setBounds(340, 30, 34, 14);
+
         jTabbedPane1.addTab("Session", jPanel4);
-
-        jPanel5.setBackground(new java.awt.Color(102, 255, 102));
-        jPanel5.setLayout(null);
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setText("Save");
-        jPanel5.add(jButton4);
-        jButton4.setBounds(408, 240, 128, 33);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Session :");
-        jPanel5.add(jLabel6);
-        jLabel6.setBounds(312, 187, 54, 23);
-
-        jTextField4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField4.setText("jTextField1");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(jTextField4);
-        jTextField4.setBounds(408, 187, 199, 23);
-
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(jList4);
-
-        jPanel5.add(jScrollPane5);
-        jScrollPane5.setBounds(36, 80, 217, 342);
-
-        jTabbedPane1.addTab("Inventory", jPanel5);
 
         jScrollPane1.setViewportView(jTabbedPane1);
 
@@ -233,53 +268,276 @@ public class SettingIFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void sessionListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_sessionListValueChanged
+        String vl = this.sessionList.getSelectedValue();
+        this.selectSessionSelectedID(vl);
+    }//GEN-LAST:event_sessionListValueChanged
+
+    private void sessionTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sessionTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_sessionTxtActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void sessionSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sessionSaveMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        if("Save" == this.sessionSave.getText()){
+            // System.out.printf("\nerror during save %d",Integer.parseInt(tutionFee.getText()));
+            Session clas = new Session();
+            clas.setName(this.sessionTxt.getText());
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+            int i = new SessionDaoImpl().insertSession(clas);
+            if(i!=0){
+                System.out.print("Data inserted");
+                JOptionPane.showMessageDialog(this,"Data Save...");
+                this.sessionClearField();
+            }
+            else{
+                System.out.print("error during save");
+                JOptionPane.showMessageDialog(this,"Error during save Retry..");
+            }
+        }
+        else if("Update" == sessionSave.getText()){
+            System.out.printf("\n--->Under update");
+            Session clas = new Session();
+            clas.setName(sessionTxt.getText());
+            clas.setId(Integer.parseInt(this.sID.getText()));
+            int i = new SessionDaoImpl().updateSession(clas);
+
+            if(i!=0){
+                System.out.print("Data inserted");
+                JOptionPane.showMessageDialog(this,"Data Save...");
+                this.sessionSave.setText("Save");
+                clearField();
+            }
+            else{
+                System.out.print("error during save");
+                JOptionPane.showMessageDialog(this,"Error during save Retry..");
+            }
+        }
+        sessionListRefresh();
+
+    }//GEN-LAST:event_sessionSaveMouseClicked
+
+    private void feeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feeTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_feeTxtActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void classNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_classNameActionPerformed
 
+    private void ComputerFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComputerFeeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComputerFeeActionPerformed
 
+    private void classListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_classListValueChanged
+
+        String vl = this.classList.getSelectedValue();
+
+        selectSelectedID(vl);
+    }//GEN-LAST:event_classListValueChanged
+
+    private void classListPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_classListPropertyChange
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_classListPropertyChange
+
+    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+        // TODO add your handling code here:
+        if("Save" == save.getText()){
+            // System.out.printf("\nerror during save %d",Integer.parseInt(tutionFee.getText()));
+            Classes clas = new Classes();
+            clas.setName(className.getText());
+            clas.setTutionFee(Integer.parseInt(tutionFee.getText()));
+            clas.setComputer(Integer.parseInt(ComputerFee.getText()));
+            System.out.print(Integer.parseInt(tutionFee.getText()));
+            int i = new ClassesDaoImpl().insertClasses(clas);
+            if(i!=0){
+                System.out.print("Data inserted");
+                JOptionPane.showMessageDialog(this,"Data Save...");
+                clearField();
+
+            }
+            else{
+                System.out.print("error during save");
+                JOptionPane.showMessageDialog(this,"Error during save Retry..");
+            }
+        }
+        else if("Update" == save.getText()){
+            System.out.printf("\n--->Under update");
+            Classes clas = new Classes();
+            clas.setName(className.getText());
+            clas.setTutionFee(Integer.parseInt(tutionFee.getText()));
+            clas.setComputer(Integer.parseInt(ComputerFee.getText()));
+            clas.setId(Integer.parseInt(cID.getText()));
+            int i = new ClassesDaoImpl().updateClasses(clas);
+
+            if(i!=0){
+                System.out.print("Data inserted");
+                JOptionPane.showMessageDialog(this,"Data Save...");
+                save.setText("Save");
+                clearField();
+            }
+            else{
+                System.out.print("error during save");
+                JOptionPane.showMessageDialog(this,"Error during save Retry..");
+            }
+        }
+        ListRefresh();
+    }//GEN-LAST:event_saveMouseClicked
+
+    private void tutionFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutionFeeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tutionFeeActionPerformed
+//Update Code
+   private void selectSelectedID(String string){
+         try{
+                    for(int i = 0;classListVector.length>i;i++){
+                        if(string == classListVector[i].getName()){
+                             this.ComputerFee.setText(String.valueOf(classListVector[i].getComputer()));
+                            this.className.setText(classListVector[i].getName());
+                            this.tutionFee.setText(String.valueOf(classListVector[i].getTutionFee()));
+                            this.cID.setText(String.valueOf(classListVector[i].getId()));
+                            save.setText("Update");
+                            return;
+                        }
+                    }
+           }
+        catch(Exception ex){
+              Logger.getLogger(ClassesDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print("Eroor in selected id");  
+            System.out.print(ex);
+        }
+    }
+   
+   //Session Update Code
+   private void selectSessionSelectedID(String string){
+         try{
+                    for(int i = 0;sessionListVector.length>i;i++){
+                        if(string == sessionListVector[i].getName()){
+                            this.sessionTxt.setText(sessionListVector[i].getName());
+                            this.sID.setText(String.valueOf(classListVector[i].getId()));
+                            this.sessionSave.setText("Update");
+                            return;
+                        }
+                    }
+           }
+        catch(Exception ex){
+              Logger.getLogger(ClassesDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.print("Eroor in selected id");  
+            System.out.print(ex);
+        }
+    }    
+    //classList
+    private void ListRefresh(){
+        //this.classList
+        ClassesDaoImpl cls =new ClassesDaoImpl();
+        classListVector =cls.selectClasses();
+         System.out.printf("Select => %s",classListVector[3].getName());
+        if(classListVector==null) {
+            System.out.printf("Null");
+        }
+         String[] str = new String[classListVector.length];
+          DefaultListModel<String> l1 = new DefaultListModel<>(); 
+           classList.setModel(l1);
+            
+           System.out.printf("\nPrint size ==>%d",classListVector.length);
+            l1.addElement(classListVector[3].getName());
+           try{
+                    for(int i = 0;classListVector.length>i;i++){
+                         System.out.printf("\n==>%d",i);
+                         l1.addElement(classListVector[i].getName());
+                        
+                         str[i] = classListVector[i].getName();
+                    }
+           }
+        catch(Exception ex){
+              Logger.getLogger(ClassesDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+              
+            System.out.print(ex);
+        }
+       // this.classList.setListData(str);
+     
+        this.repaint();
+    }
+    
+    //session List
+    private void sessionListRefresh(){
+        //this.classList
+        SessionDaoImpl cls =new SessionDaoImpl();
+       sessionListVector =cls.selectSession();
+         
+        if(sessionListVector==null) {
+            System.out.printf("Null");
+        }
+         String[] str = new String[sessionListVector.length];
+          DefaultListModel<String> l1 = new DefaultListModel<>(); 
+           this.sessionList.setModel(l1);
+            
+           System.out.printf("\nPrint size ==>%d",sessionListVector.length);
+            
+           try{
+                    for(int i = 0;sessionListVector.length>i;i++){
+                         System.out.printf("\n==>%d",i);
+                         l1.addElement(sessionListVector[i].getName());
+                        
+                         str[i] = sessionListVector[i].getName();
+                    }
+           }
+        catch(Exception ex){
+              Logger.getLogger(SessionDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+              
+            System.out.print(ex);
+        }
+       // this.classList.setListData(str);
+     
+        this.repaint();
+    }
+    
+    //class field
+    private void clearField(){
+        this.ComputerFee.setText("0");
+        this.className.setText("");
+        this.tutionFee.setText("0");
+        this.cID.setText("0");
+        
+    }
+    
+    //session field
+     private void sessionClearField(){
+       
+        this.sessionTxt.setText("");
+       
+        this.sID.setText("0");
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JTextField ComputerFee;
+    private javax.swing.JLabel cID;
+    private javax.swing.JList<String> classList;
+    private javax.swing.JTextField className;
+    private javax.swing.JButton feeSave;
+    private javax.swing.JTextField feeTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel sID;
+    private javax.swing.JButton save;
+    private javax.swing.JList<String> sessionList;
+    private javax.swing.JButton sessionSave;
+    private javax.swing.JTextField sessionTxt;
+    private javax.swing.JTextField tutionFee;
     // End of variables declaration//GEN-END:variables
 }

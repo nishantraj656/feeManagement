@@ -31,6 +31,7 @@ public class DBConnection {
 
            conn = DriverManager.getConnection(dbURL, username, password);
         } catch (SQLException ex) {
+            System.out.print(ex);
         }
         return conn;
     }
